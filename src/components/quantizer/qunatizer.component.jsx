@@ -1,40 +1,23 @@
 import { Mode, Scale, Key, ChordType } from "tonal";
 import CircularSlider from '@fseehawer/react-circular-slider';
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./quantizer.styles.scss"
 import FineTune from "../fine-tune-keys/fine-tune-keys.component";
+import { SequencerContext } from "../sequencer/sequencer.component";
 
 
-const Quantizer = (props) => {
+const Quantizer = React.memo((props) => {
   const [scale, setScale] = useState("C")
   const [scaleNotes, setScaleNotes] = useState(scale)
   const [chordData, setChordData] = useState(Key.majorKey(scale).chords)
   const [key, setKey] = useState(0); // add a key state variable
   const [type, setType] = useState("major"); // add a key state variable
-  const [pitch, setPitch] = useState("C1");
-
   
+
   const handleScaleChange = (value) =>{
-    setScale(value)
-  }
-
-  
-  useEffect(() => {
-    setScaleNotes(scale)
+    setScaleNotes(value)
     
-    if (type === "major"){
-      setChordData(Key.majorKey(scale).chords);
-    } else {
-      if (type === "minor-natural") {
-        setChordData(Key.minorKey(scale).natural.chords)
-      }
-      else if (type === "minor-harmonic") {
-        setChordData(Key.minorKey(scale).harmonic.chords)
-      }
-      else {setChordData(Key.minorKey(scale).melodic.chords)}
-    }
-
-  }, [scale]);
+  }
 
 
   return (
@@ -156,14 +139,13 @@ const Quantizer = (props) => {
       </div>
       <div>
       <FineTune
-            scale={Key.majorKey(scaleNotes).scale}
-            current={props.current}
-            index={props.index} />
-        
+        scale={Key.majorKey(scaleNotes).scale}
+        value={props.value}  
+      />
       </div>
     </div>
   )
-}
+})
 
 
 export default Quantizer

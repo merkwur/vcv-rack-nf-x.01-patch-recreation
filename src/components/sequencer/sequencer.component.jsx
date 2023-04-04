@@ -1,41 +1,42 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState, useRef, createContext, useMemo, useLayoutEffect } from 'react'
 import { ClockContext } from '../clock/clock.component'
 import VerticalSlider from "../slider/verticalSlider.component"
 import "./sequencer.styles.scss"
 import Quantizer from '../quantizer/qunatizer.component'
 
+export const SequencerContext = createContext();
 
-const Sequencer = () => {
-  const {step, time} = useContext(ClockContext)
-
-  const sequencerDivsRef = useRef([]);
+const Sequencer = React.memo(() => {
+  const { time } = useContext(ClockContext);
+  const { step } = useContext(ClockContext);
   const sequencerStepsRef = useRef([]);
-  const [senderVals, setSenderVals] = useState(Array(10).fill(0))
-  const currentStep = time % step
-  const [sliderValues, setSliderValues] = useState(Array(10).fill(0));
+  const [sliderValues, setSliderValues] = useState(Array(step).fill(0));
   const [sequencerDivs, setSequencerDivs] = useState([]);
   const [sequencerSteps, setSequencerSteps] = useState([]);
 
   const handleSliderChange = (value, index) => {
-    // console.log(sliderValues, value, index)
     const newValue = Math.abs(value)
-    
     if (newValue !== null) {
       setSliderValues(prevState => {
         const updatedValues = [...prevState];
         updatedValues[index] = Number(newValue);
-        setSenderVals(updatedValues)
         return updatedValues;
       });
     }
   };
+
+  const currentStep = useMemo(() => {
+    return time % step;
+  }, [time, step]);
+
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     sequencerStepsRef.current.forEach((div, i) => {
-      div.style.backgroundColor = currentStep === i ? '#aa4242' : '#000000';
+      div.style.backgroundColor = currentStep-1 === i ? '#aa4242' : '#000000';
     });
-    console.log(senderVals)
-  }, [currentStep]);
+    
+  }, [time]);
+
   
   useEffect(() => {
     const newSequencerDivs = [];
@@ -76,10 +77,12 @@ const Sequencer = () => {
         </div>
       </div>
     <div>
-      <Quantizer />
+      <SequencerContext.Provider value={{sliderValues}}>
+        <Quantizer />
+      </SequencerContext.Provider>
     </div>
     </div>        
   )
-}
+})
 
 export default Sequencer

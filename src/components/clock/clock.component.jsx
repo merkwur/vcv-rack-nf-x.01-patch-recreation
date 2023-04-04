@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useMemo } from 'react';
 import Sequencer from '../sequencer/sequencer.component'
 import CircularSlider from '@fseehawer/react-circular-slider';
 import "./clock.styles.scss"
@@ -8,19 +8,22 @@ const sequenceLenght = Array.from({length: 24}, (_, i) => i + 1)
 
 export const ClockContext = createContext();
 
-const Clock = ({ bpm }) => {
+const Clock = React.memo(({ bpm }) => {
   const [time, setTime] = useState(0);
+  const [step, setStep] = useState(8)
+  const [run, setRun] = useState(false)
   const [BPM, setBPM] = useState(bpm);
   const [updateBPM, setUpdateBPM] = useState(bpm)
-  const [step, setStep] = useState(8)
   const [intervalId, setIntervalId] = useState(null);
   
   const startClock = () => {
     clearInterval(intervalId);
     const id = setInterval(() => setTime(prevTime => prevTime + 1), 60000 / bpm);
     setIntervalId(id);
-    
+    setRun(true)
   };
+
+
 
   const handleStepChange = (value)=>{
     setStep(value)
@@ -30,6 +33,7 @@ const Clock = ({ bpm }) => {
     clearInterval(intervalId);
     setIntervalId(null);
     setTime(0);
+    setRun(false)
   };
   
   useEffect(() => {
@@ -109,7 +113,7 @@ const Clock = ({ bpm }) => {
             </div>
           </div>
           <div className='wrapped-seq'>
-            <ClockContext.Provider value={{time, step}}>
+            <ClockContext.Provider value={{time, step, run}}>
               <Sequencer />
             </ClockContext.Provider>
           </div>      
@@ -117,6 +121,6 @@ const Clock = ({ bpm }) => {
       </div>
 
   );
-};
+})
 
 export default Clock;
