@@ -2,4 +2,4 @@
 
 Recreation of simple yet beautiful patch from VCV Rack
 
-[Schematics](./src/assets/schematics)
+![Schematic](./src/assets/schematics.png)

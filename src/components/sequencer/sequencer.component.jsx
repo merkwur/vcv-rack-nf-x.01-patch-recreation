@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import { ClockContext } from '../clock/clock.component'
 import VerticalSlider from "../slider/verticalSlider.component"
 import "./sequencer.styles.scss"
+import Quantizer from '../quantizer/qunatizer.component'
 
 
 const Sequencer = () => {
@@ -74,6 +75,9 @@ const Sequencer = () => {
           {sequencerSteps}
         </div>
       </div>
+    <div>
+      <Quantizer />
+    </div>
     </div>        
   )
 }

@@ -108,7 +108,7 @@ const Clock = ({ bpm }) => {
               <button className='clock-button stop' onClick={stopClock}>Stop</button>
             </div>
           </div>
-          <div>
+          <div className='wrapped-seq'>
             <ClockContext.Provider value={{time, step}}>
               <Sequencer />
             </ClockContext.Provider>
