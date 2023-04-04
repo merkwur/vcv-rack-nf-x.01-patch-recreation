@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useRef } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
+import { ClockContext } from '../clock/clock.component'
 import VerticalSlider from "../slider/verticalSlider.component"
 import "./sequencer.styles.scss"
-import { ClockContext } from '../clock/clock.component'
 
 
 const Sequencer = () => {
