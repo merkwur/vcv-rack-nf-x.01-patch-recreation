@@ -1,0 +1,37 @@
+.vertical-slider {
+  height: 40vh;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+/* Track */
+.vertical-slider {
+  background-color: #07070712;
+  height: 100%;
+  width: 5px;
+  border-radius: 5px;
+  transform: translate(25px);
+  
+  // margin: 0 20px;
+  
+}
+
+
+/* Thumb */
+.vertical-slider .thumb {
+  background-image: linear-gradient(#ff2222, #aa4242);
+  height: 30px;
+  width: 20px;
+  border-radius: 10%;
+  transform: translate(-7px);
+  cursor: grab;
+}
+
+/* Thumb while being dragged */
+.vertical-slider .thumb:active,
+.vertical-slider .thumb:focus {
+  cursor: grabbing;
+}

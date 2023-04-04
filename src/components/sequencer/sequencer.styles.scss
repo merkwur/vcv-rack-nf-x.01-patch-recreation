@@ -1,0 +1,51 @@
+.sequence-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-height: 100%;
+  border: 5px solid #aa424242;
+  border-radius: 10px;
+  margin: 10px 10px 10px 0px;
+
+  .rows{
+    width: 100%;
+    min-width: 50%;
+    max-height: 100%;
+    display: flex;
+    border: 1px solid #aa424200;
+    flex-direction: column;
+    // border-right: 3px solid #aa424242;
+    // border-left: 3px solid #aa424242;
+    justify-content: space-between;
+    
+    .range{
+      height: 100%;
+      min-width: 50%;
+      
+      display: flex;
+      justify-content: space-between;
+      max-height: 100%;
+      border: 1px solid #aa424200;
+      margin: 10px 10px 10px 10px;
+      padding: 10px 45px 10px 0px;  
+      
+    }
+
+    .step{
+      border: 1px solid #aa424200;
+      display: flex;
+      margin: 0px 10px 10px 10px;
+      justify-content: space-between;
+      padding: 10px 25px 10px 30px;
+      
+      .sequencer-step{
+        width: 10px;
+        height: 10px;
+        // margin: 10px 30px 10px 30px;
+        border-radius: 50%;
+        border: 1px solid #aa424200;
+      }
+    }
+  }
+}

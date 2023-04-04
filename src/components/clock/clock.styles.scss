@@ -1,0 +1,90 @@
+.about-time{
+  width: fit-content;
+  height: 45vh;
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid #aa424242;
+  border-radius: 10px;
+  margin: 10px 10px 10px 10px;
+  padding: 10px 00px 10px 10px;
+  // overflow-x: hidden;
+  // overflow-y: hidden;
+
+  .clock-panel{
+    padding-right: 10px;
+    border-right: 3px solid #aa424242;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+
+    .header{
+      margin-top: 10px;
+      color: #aa4242;
+      font-weight: 900;
+      font-size: 14pt;
+      text-align: center;
+    }
+
+    .counter{
+      background-color: black;
+      color: #aa4242;
+      font-size: 30pt;
+      font-weight: 200;
+      text-align: center;
+    }
+
+    .bpm-panel{
+      display: flex;
+      flex-direction: column;
+
+      .bpm-text{
+        color: #aa4242;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .bpm-input{
+        width: 120px;
+        line-height: 40px;
+        color: #aa4242;
+        background-color: black;
+        text-align: center;
+        padding-left: 15px;
+        font-size: 14pt;
+        outline: none;
+        border: none;
+      }
+    }
+
+
+    .buttons{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 10px 0px 15px 0px;
+      
+      .start{
+        color: #aa4242;
+        font-size: 14pt;
+        font-weight: 100;
+        background-color: black;
+        height: 50px;
+        outline: none;
+        border: none;
+        margin-bottom: 5px;
+      }
+      .stop{
+        color: #aa4242;
+        font-size: 14pt;
+        font-weight: 100;
+        background-color: black;
+        height: 50px;
+        outline: none;
+        border: none;
+        margin-top: 5px;
+      }
+    }
+  }
+}
