@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useRef } from 'react'
 import VerticalSlider from "../slider/verticalSlider.component"
 import "./sequencer.styles.scss"
+import { ClockContext } from '../clock/clock.component'
 
 
-const Sequencer = (props) => {
+const Sequencer = () => {
+  const {step, time} = useContext(ClockContext)
+
   const sequencerDivsRef = useRef([]);
   const sequencerStepsRef = useRef([]);
   const [senderVals, setSenderVals] = useState(Array(10).fill(0))
-  const currentStep = props.currentStep % props.steps
+  const currentStep = time % step
   const [sliderValues, setSliderValues] = useState(Array(10).fill(0));
   const [sequencerDivs, setSequencerDivs] = useState([]);
   const [sequencerSteps, setSequencerSteps] = useState([]);
@@ -31,14 +34,13 @@ const Sequencer = (props) => {
     sequencerStepsRef.current.forEach((div, i) => {
       div.style.backgroundColor = currentStep === i ? '#aa4242' : '#000000';
     });
-
-    // console.log(senderVals[currentStep])
+    console.log(senderVals)
   }, [currentStep]);
   
   useEffect(() => {
     const newSequencerDivs = [];
     const newSequencerSteps = [];
-    for (let i = 0; i < props.steps; i++) {
+    for (let i = 0; i < step; i++) {
       newSequencerDivs.push(
         <VerticalSlider
           key={i}
@@ -60,7 +62,7 @@ const Sequencer = (props) => {
     }
     setSequencerDivs(newSequencerDivs);
     setSequencerSteps(newSequencerSteps);
-  }, [props.steps, sliderValues]);
+  }, [step, sliderValues]);
 
   return (
     <div className='sequence-container'>

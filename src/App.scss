@@ -3,8 +3,8 @@
   width: 100vw;
   height: 100vh;
   max-width:100%;  /* added */
-  /* overflow: hidden; */
-  display: flex;
+  overflow: hidden;
+  display: wrap;
   flex-direction: column;
 
 }

@@ -2,7 +2,7 @@
   width: fit-content;
   height: 45vh;
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   border: 5px solid #aa424242;
   border-radius: 10px;
   margin: 10px 10px 10px 10px;
@@ -46,7 +46,7 @@
       }
 
       .bpm-input{
-        width: 120px;
+        // width: 120px;
         line-height: 40px;
         color: #aa4242;
         background-color: black;
@@ -58,6 +58,11 @@
       }
     }
 
+    .step-wrapper{
+      margin-top: 20px;
+      display: flex;
+      
+    }
 
     .buttons{
       display: flex;
@@ -68,7 +73,7 @@
       .start{
         color: #aa4242;
         font-size: 14pt;
-        font-weight: 100;
+        font-weight: 300;
         background-color: black;
         height: 50px;
         outline: none;
@@ -78,7 +83,7 @@
       .stop{
         color: #aa4242;
         font-size: 14pt;
-        font-weight: 100;
+        font-weight: 300;
         background-color: black;
         height: 50px;
         outline: none;

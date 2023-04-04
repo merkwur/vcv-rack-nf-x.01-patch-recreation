@@ -4,10 +4,9 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 import "./clock.styles.scss"
 
 
-const sequenceLenght = Array.from({length: 24}, (_, i) => i + 1) //[...Array(24).keys()].map(String)
+const sequenceLenght = Array.from({length: 24}, (_, i) => i + 1)
 
 export const ClockContext = createContext();
-
 
 const Clock = ({ bpm }) => {
   const [time, setTime] = useState(0);
@@ -110,9 +109,9 @@ const Clock = ({ bpm }) => {
             </div>
           </div>
           <div>
-            {/* <ClockContext.Provider value={[]}>
-              <Sequencer steps={8} currentStep={time}/>
-            </ClockContext.Provider> */}
+            <ClockContext.Provider value={{time, step}}>
+              <Sequencer />
+            </ClockContext.Provider>
           </div>      
 
       </div>
