@@ -1,25 +1,31 @@
-import React, { useContext, useEffect, useState, useRef, createContext, useMemo, useLayoutEffect } from 'react'
-import { ClockContext } from '../../App'
+import React, { useContext, 
+                useEffect, 
+                useCallback,
+                useState, 
+                useRef, 
+                createContext, 
+                useMemo, 
+                useLayoutEffect } from 'react'
+import { ClockContext, SliderContext } from '../../App'
 import VerticalSlider from "../slider/verticalSlider.component"
 import "./sequencer.styles.scss"
-import Quantizer from '../quantizer/qunatizer.component'
+
 
 export const SequencerContext = createContext();
 
 const Sequencer = React.memo(() => {
   const {time} = useContext(ClockContext);
   const {step} = useContext(ClockContext)
-  
-  
+  const [sliderValues, setSliderValues] = useContext(SliderContext)
   const sequencerStepsRef = useRef([]);
-  const [sliderValues, setSliderValues] = useState(Array(step).fill(0));
   const [sequencerDivs, setSequencerDivs] = useState([]);
   const [sequencerSteps, setSequencerSteps] = useState([]);
+  const [sliderArr, setSliderArr] =  useState(Array(step).fill(0))
 
   const handleSliderChange = (value, index) => {
     const newValue = Math.abs(value)
     if (newValue !== null) {
-      setSliderValues(prevState => {
+      setSliderArr(prevState => {
         const updatedValues = [...prevState];
         updatedValues[index] = Number(newValue);
         return updatedValues;
@@ -39,6 +45,18 @@ const Sequencer = React.memo(() => {
     
   }, [time]);
 
+  const updateSliders = useCallback((keys) => {
+    setSliderValues(keys);
+  }, [setSliderValues]);
+
+  useEffect(() => {
+    console.log(sliderValues)
+  }, [sliderValues])
+  
+  useEffect(() => {
+    updateSliders(sliderArr);
+  }, [sliderArr, updateSliders]);
+
   
   useEffect(() => {
     const newSequencerDivs = [];
@@ -51,7 +69,7 @@ const Sequencer = React.memo(() => {
           min={-100}
           max={0}
           step={1}
-          value={sliderValues[i]}
+          value={sliderArr[i]}
           onChange={(value) => handleSliderChange(value, i)}
         />
       );
@@ -65,7 +83,7 @@ const Sequencer = React.memo(() => {
     }
     setSequencerDivs(newSequencerDivs);
     setSequencerSteps(newSequencerSteps);
-  }, [step, sliderValues]);
+  }, [step, sliderArr]);
 
   return (
     <div className='sequence-container'>

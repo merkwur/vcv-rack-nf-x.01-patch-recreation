@@ -7,7 +7,7 @@ import { ScaleContext } from "../../App";
 
 const Quantizer = React.memo((props) => {
   const [scale, setScale] = useContext(ScaleContext)
-  
+  const width = 75  
 
   const handleScaleChange = (value) =>{
     setScale(Key.majorKey(value).scale)
@@ -26,11 +26,11 @@ const Quantizer = React.memo((props) => {
             <div className="quant-scale">
               <CircularSlider
                     key={1}
-                    width={80}
+                    width={width}
                     className="scale-picker"
                     hideKnob={false}
-                    valueFontSize={'1.7rem'}
-                    labelFontSize={"11.5pt"}
+                    valueFontSize={'20pt'}
+                    labelFontSize={"10.5pt"}
                     verticalOffset={"-2px"}
                     label="scale"
                     labelColor="#aa4242"
@@ -54,11 +54,11 @@ const Quantizer = React.memo((props) => {
             <div className="quant-octave">
               <CircularSlider
                     key={2}
-                    width={80}
+                    width={width}
                     className="octave-picker"
                     hideKnob={false}
-                    valueFontSize={'1.7rem'}
-                    labelFontSize={"11.5pt"}
+                    valueFontSize={'20pt'}
+                    labelFontSize={"10.5pt"}
                     verticalOffset={"-2px"}
                     label="octave"
                     labelColor="#aa4242"
@@ -76,11 +76,11 @@ const Quantizer = React.memo((props) => {
                 />
            </div>
           </div>
-          {/* <div className="rb-columns-mode chord">
+          <div className="rb-columns-mode chord">
             <div className="quant-mode">
               <CircularSlider
                     key={3}
-                    width={80}
+                    width={width}
                     className="mode-picker"
                     hideKnob={false}
                     valueFontSize={'7pt'}
@@ -96,7 +96,7 @@ const Quantizer = React.memo((props) => {
                     knobColor="#aa4242"
                     trackColor="#000000"
                     trackSize={6}
-                    data={Mode.names()} //...
+                    data={Array(10).fill(0)} //...
                     dataIndex={0}
                     // onChange={(value) => {
                     //   if (typeof value === 'string') {
@@ -107,8 +107,8 @@ const Quantizer = React.memo((props) => {
             </div>
             <div className="quant-chord">
               <CircularSlider
-                    key={key}
-                    width={80}
+                    key={4}
+                    width={width}
                     className="chord-picker"
                     hideKnob={false}
                     valueFontSize={'7pt'}
@@ -124,12 +124,12 @@ const Quantizer = React.memo((props) => {
                     knobColor="#aa4242"
                     trackColor="#000000"
                     trackSize={6}
-                    data={chordData} //...
+                    data={Array(10).fill(0)} //...
                     dataIndex={0}
                     // onChange={ value => { console.log(value); } }
                 />
            </div>
-          </div> */}
+          </div>
         </div>
       </div>
       <div>

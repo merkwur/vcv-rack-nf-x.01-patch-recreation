@@ -1,8 +1,6 @@
 import "./fine-tune-keys.styles.scss"
 import React, { useContext, useEffect, useCallback, useState } from 'react';
-import { ClockContext, ScaleContext, SliderContext } from '../../App';
-
-
+import { ClockContext, PitchContext, ScaleContext, SliderContext } from '../../App';
 
 const convertToSharp = (note) => {
   const flatToSharp = {
@@ -36,9 +34,9 @@ const FineTune = React.memo(() => {
   const [activeKeys, setActiveKeys] = useState([]);
   const {time, step} = useContext(ClockContext)
   const [scale, setScale] = useContext(ScaleContext)
-  const {sliderValues} = useContext(SliderContext)
+  const [sliderValues, setSliderValues] = useContext(SliderContext)
   const [resultKeys, setResultKeys] = useState([])
-  const [pitch, setPitch] = useState("C4")
+  const [pitch, setPitch] = useContext(PitchContext)
   const currentStep = time % step
   const scaleSharpNotes = scale.map((note) => convertToSharp(note));
 
@@ -69,16 +67,13 @@ const FineTune = React.memo(() => {
     });
   };
 
-  const updateResultKeys = useCallback(
-    (keys) => {
-      setResultKeys(keys);
-    },
-    [setResultKeys]
-  );
+  const updateResultKeys = useCallback((keys) => {
+    setResultKeys(keys)},
+    [setResultKeys])
   
-  useEffect(() => {
-    console.log(resultKeys, activeKeys);
-  }, [resultKeys]);
+  // useEffect(() => {
+  //   console.log(resultKeys, activeKeys);
+  // }, [resultKeys]);
   
   useEffect(() => {
     if (activeKeys.length) {
@@ -91,7 +86,8 @@ const FineTune = React.memo(() => {
   useEffect(() => {
     const selectedKey = sliderValues[currentStep] % resultKeys.length
     setPitch(`${resultKeys[selectedKey]}${Math.floor(sliderValues[currentStep] / 12.5)+1}`)
-  }, [time, resultKeys]);
+    console.log(pitch, resultKeys.length)
+  }, [time]);
   
   const renderKey = (key, isBlack) => {
     const isActive = activeKeys.includes(key);
