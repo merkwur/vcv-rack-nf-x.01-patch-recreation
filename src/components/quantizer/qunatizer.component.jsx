@@ -1,21 +1,16 @@
-import { Mode, Scale, Key, ChordType } from "tonal";
+import { Scale, Key } from "tonal";
 import CircularSlider from '@fseehawer/react-circular-slider';
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./quantizer.styles.scss"
-import FineTune from "../fine-tune-keys/fine-tune-keys.component";
-import { SequencerContext } from "../sequencer/sequencer.component";
+import { ScaleContext } from "../../App";
 
 
 const Quantizer = React.memo((props) => {
-  const [scale, setScale] = useState("C")
-  const [scaleNotes, setScaleNotes] = useState(scale)
-  const [chordData, setChordData] = useState(Key.majorKey(scale).chords)
-  const [key, setKey] = useState(0); // add a key state variable
-  const [type, setType] = useState("major"); // add a key state variable
+  const [scale, setScale] = useContext(ScaleContext)
   
 
   const handleScaleChange = (value) =>{
-    setScaleNotes(value)
+    setScale(Key.majorKey(value).scale)
     
   }
 
@@ -81,7 +76,7 @@ const Quantizer = React.memo((props) => {
                 />
            </div>
           </div>
-          <div className="rb-columns-mode chord">
+          {/* <div className="rb-columns-mode chord">
             <div className="quant-mode">
               <CircularSlider
                     key={3}
@@ -134,14 +129,10 @@ const Quantizer = React.memo((props) => {
                     // onChange={ value => { console.log(value); } }
                 />
            </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div>
-      <FineTune
-        scale={Key.majorKey(scaleNotes).scale}
-        value={props.value}  
-      />
       </div>
     </div>
   )

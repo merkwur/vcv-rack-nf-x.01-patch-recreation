@@ -6,13 +6,14 @@
   justify-content: center;
   align-items: center;
   margin-top: 65px;
+  margin-left: 20px;
 }
 
 .keys {
   color: #aa4242;
   // transform: translate(-220px);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: bottom;
   text-align: center;
 }
@@ -34,7 +35,7 @@
 }
 
 .white {
-  transform: translateY(50px);
+  transform: translateX(40px);
   background-color: black;
   border: 2px solid #aa424242;
   border-radius: 50%;
@@ -43,11 +44,11 @@
 .black {
   border: 2px solid #aa424242;
   background-color: black;
-  margin-left: -13px;
-  margin-right: -13px;
+  margin-top: -15px;
+  // margin-left: -13px;
+  // margin-right: -13px;
   width: 30px;
   height: 30px;
-  // transform: translate(-20px);
   border-radius: 50%;
   z-index: 1;
 }

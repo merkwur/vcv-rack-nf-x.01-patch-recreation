@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import * as Tone from "tone";
-import { ClockContext } from "../clock/clock.component";
+import "./synth.styles.scss";
+import { ClockContext } from "../../App";
 
 const Synth = React.memo((props) => {
   const { time } = useContext(ClockContext);
   const { run } = useContext(ClockContext);
+
   const fmSynth = useRef(
     new Tone.FMSynth({
       harmonicity: 0,
@@ -32,14 +34,12 @@ const Synth = React.memo((props) => {
   ).current;
 
   useEffect(() => {
-    
     if (run) {
-      fmSynth.triggerAttackRelease(props.pitch, "8n");
-      
+      fmSynth.triggerAttackRelease(props.pitch, "16n");
     }
   }, [time]);
 
-  return null;
+  return null; // Since we don't need to render anything in the component
 });
 
 export default Synth;

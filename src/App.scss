@@ -1,10 +1,9 @@
 .App {
   background-color: #171717;
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   max-width:100%;  /* added */
-  overflow: hidden;
-  display: wrap;
-  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
 
 }

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
 import "./fine-tune-keys.styles.scss"
-import { ClockContext } from '../clock/clock.component';
-import { SequencerContext } from '../sequencer/sequencer.component';
-import Synth from '../synth/synth.component';
+import React, { useContext, useEffect, useCallback, useState } from 'react';
+import { ClockContext, ScaleContext, SliderContext } from '../../App';
+
+
 
 const convertToSharp = (note) => {
   const flatToSharp = {
@@ -31,18 +31,19 @@ const convertToSharp = (note) => {
   return flatToSharp[note];
 }
 
-const FineTune = React.memo((props) => {
+const FineTune = React.memo(() => {
   const [active, setActive] = useState(false)
   const [activeKeys, setActiveKeys] = useState([]);
-  const [resKey, setResKey] = useState(props.scale)
   const {time, step} = useContext(ClockContext)
-  const {sliderValues} = useContext(SequencerContext)
+  const [scale, setScale] = useContext(ScaleContext)
+  const {sliderValues} = useContext(SliderContext)
+  const [resultKeys, setResultKeys] = useState([])
   const [pitch, setPitch] = useState("C4")
   const currentStep = time % step
-  const scaleSharpNotes = props.scale.map((note) => convertToSharp(note));
+  const scaleSharpNotes = scale.map((note) => convertToSharp(note));
 
   const handleKeyClick = (key) => {
-    setActive(true)
+    // setActive(true)
     setActiveKeys((prevActiveKeys) => {
       let updatedKeys;
       if (prevActiveKeys.includes(key)) {
@@ -63,32 +64,34 @@ const FineTune = React.memo((props) => {
           return updatedKeys;
         }
       }
-      
-      if (updatedKeys.length){
-        setResKey(updatedKeys)
-      } else {
-        setResKey(props.scale)
-        setActive(false)
-      }
-
-
+          
       return updatedKeys;
     });
   };
-  
 
-  useEffect(() => {
-    if (!active){
-      setResKey(props.scale)
-    }  
-  }, [props.scale])
+  const updateResultKeys = useCallback(
+    (keys) => {
+      setResultKeys(keys);
+    },
+    [setResultKeys]
+  );
   
   useEffect(() => {
-    const selectedKey = sliderValues[currentStep] % resKey.length
-    setPitch(`${resKey[selectedKey]}${Math.floor(sliderValues[currentStep] / 12.5)+1}`)
-    console.log(pitch)
-    
-  }, [time])
+    console.log(resultKeys, activeKeys);
+  }, [resultKeys]);
+  
+  useEffect(() => {
+    if (activeKeys.length) {
+      updateResultKeys(activeKeys);
+    } else {
+      updateResultKeys(scale);
+    } 
+  }, [activeKeys, updateResultKeys]);
+  
+  useEffect(() => {
+    const selectedKey = sliderValues[currentStep] % resultKeys.length
+    setPitch(`${resultKeys[selectedKey]}${Math.floor(sliderValues[currentStep] / 12.5)+1}`)
+  }, [time, resultKeys]);
   
   const renderKey = (key, isBlack) => {
     const isActive = activeKeys.includes(key);
@@ -113,23 +116,23 @@ const FineTune = React.memo((props) => {
     <div>
       <div className='piano'>
         <div className='keys'>
-          {renderKey('C')}
-          {renderKey('C#', true)}
-          {renderKey('D')}
-          {renderKey('D#', true)}
-          {renderKey('E')}
-          {renderKey('F')}
-          {renderKey('F#', true)}
-          {renderKey('G')}
-          {renderKey('G#', true)}
-          {renderKey('A')}
-          {renderKey('A#', true)}
           {renderKey('B')}
+          {renderKey('A#', true)}
+          {renderKey('A')}
+          {renderKey('G#', true)}
+          {renderKey('G')}
+          {renderKey('F#', true)}
+          {renderKey('F')}
+          {renderKey('E')}
+          {renderKey('D#', true)}
+          {renderKey('D')}
+          {renderKey('C#', true)}
+          {renderKey('C')}
         </div>
       </div>
-      <div className='synthes'>
+      {/* <div className='synthes'>
         <Synth pitch={pitch}/>
-      </div>
+      </div> */}
     </div>
   );
 })

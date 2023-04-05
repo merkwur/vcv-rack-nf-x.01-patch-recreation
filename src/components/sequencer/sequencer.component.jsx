@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef, createContext, useMemo, useLayoutEffect } from 'react'
-import { ClockContext } from '../clock/clock.component'
+import { ClockContext } from '../../App'
 import VerticalSlider from "../slider/verticalSlider.component"
 import "./sequencer.styles.scss"
 import Quantizer from '../quantizer/qunatizer.component'
@@ -7,8 +7,10 @@ import Quantizer from '../quantizer/qunatizer.component'
 export const SequencerContext = createContext();
 
 const Sequencer = React.memo(() => {
-  const { time } = useContext(ClockContext);
-  const { step } = useContext(ClockContext);
+  const {time} = useContext(ClockContext);
+  const {step} = useContext(ClockContext)
+  
+  
   const sequencerStepsRef = useRef([]);
   const [sliderValues, setSliderValues] = useState(Array(step).fill(0));
   const [sequencerDivs, setSequencerDivs] = useState([]);
@@ -77,9 +79,6 @@ const Sequencer = React.memo(() => {
         </div>
       </div>
     <div>
-      <SequencerContext.Provider value={{sliderValues}}>
-        <Quantizer />
-      </SequencerContext.Provider>
     </div>
     </div>        
   )
