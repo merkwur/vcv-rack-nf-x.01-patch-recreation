@@ -1,28 +1,18 @@
 import * as Tone from "tone";
 
-export const FMSynth = new Tone.FMSynth({
-        harmonicity: 0,
-        modulationIndex: 10,
-        detune: 0,
-        oscillator: {
-          type: "sine",
-        },
-        envelope: {
-          attack: 0.01,
-          decay: 0.2,
-          sustain: 0.2,
-          release: 1,
-        },
-        modulation: {
-          type: "sine",
-        },
-        modulationEnvelope: {
-          attack: 0.5,
-          decay: 0,
-          sustain: 1,
-          release: 0.5,
-        },
-    }).toDestination()
+export const carrier = new Tone.FMOscillator({
+                                              frequency: 200,
+                                              type: "sine",
+                                              modulationType: "sine",
+                                              harmonicity: 1,
+                                              modulationIndex: 2
+                                            }).toDestination()
  
-
+export const modulator = new Tone.FMOscillator({
+                                              frequency: 200,
+                                              type: "sine",
+                                              modulationType: "sine",
+                                              harmonicity: 1,
+                                              modulationIndex: 2
+                                            }).toDestination()
 

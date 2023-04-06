@@ -32,7 +32,7 @@ const convertToSharp = (note) => {
 const FineTune = React.memo(() => {
   const [active, setActive] = useState(false)
   const [activeKeys, setActiveKeys] = useState([]);
-  const {time, step} = useContext(ClockContext)
+  const {time, step, run} = useContext(ClockContext)
   const [scale, setScale] = useContext(ScaleContext)
   const [sliderValues, setSliderValues] = useContext(SliderContext)
   const [resultKeys, setResultKeys] = useState([])
@@ -41,7 +41,7 @@ const FineTune = React.memo(() => {
   const scaleSharpNotes = scale.map((note) => convertToSharp(note));
 
   const handleKeyClick = (key) => {
-    // setActive(true)
+    
     setActiveKeys((prevActiveKeys) => {
       let updatedKeys;
       if (prevActiveKeys.includes(key)) {
@@ -71,23 +71,19 @@ const FineTune = React.memo(() => {
     setResultKeys(keys)},
     [setResultKeys])
   
-  // useEffect(() => {
-  //   console.log(resultKeys, activeKeys);
-  // }, [resultKeys]);
-  
   useEffect(() => {
     if (activeKeys.length) {
       updateResultKeys(activeKeys);
     } else {
       updateResultKeys(scale);
     } 
-  }, [activeKeys, updateResultKeys]);
+  }, [activeKeys, updateResultKeys, scale]);
   
   useEffect(() => {
     const selectedKey = sliderValues[currentStep] % resultKeys.length
     setPitch(`${resultKeys[selectedKey]}${Math.floor(sliderValues[currentStep] / 12.5)+1}`)
-    console.log(pitch, resultKeys.length)
-  }, [time]);
+    console.log(pitch)
+  }, [time, run]);
   
   const renderKey = (key, isBlack) => {
     const isActive = activeKeys.includes(key);

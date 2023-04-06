@@ -1,28 +1,42 @@
 import "./synthesizer-main.styles.scss"
 import * as Tone from "tone";
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { ClockContext } from "../../App";
+import { PitchContext} from "../../App";
 
-const Synthesizer = ({FMSynth}) => {
+const Synthesizer = ({carrier, modulator}) => {
   const [isContinuous, setIsContinuous] = useState(true)
-  const {run} = useContext(ClockContext)
+  const {run, time} = useContext(ClockContext)
+  const [pitch, setPitch] = useContext(PitchContext)
   const [isRunning, setIsRunning] = useState(false)
-
-  console.log(run)
+  const isOscPlaying = useRef(true)
   const width = 55
+  const chromaticScale = [
+    'Cb','C','C#','Db','D', 'D#', 'Eb','E', 'Fb', 'F', 'F#',
+    'Gb','G','G#','Ab','A','A#','Bb','B','B#'
+    ] 
   
-  if (run){
-    if (!isRunning){
-      FMSynth.triggerAttack()
+  
+  useEffect(() => {
+  
+      carrier.frequency.value = pitch
+      // console.log("what is pitch?", pitch)
+  }, [time])
+
+
+
+  useEffect(() => {
+    if (run & !isRunning){
+      carrier.start()
       setIsRunning(true)
+    } else {
+      carrier.stop()
+      setIsRunning(false)
     }
-  } else {
-    FMSynth.stop()
-    setIsRunning(false)
-  }
-  
-  
+  }, [run])
+
+
   return (
     <div className='synthesizer-panel'>
 
