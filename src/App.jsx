@@ -6,13 +6,12 @@ import Quantizer from './components/quantizer/qunatizer.component';
 import FineTune from './components/fine-tune-keys/fine-tune-keys.component';
 import { Key } from 'tonal';
 import Synthesizer from './components/synth/synthesizer-main.component';
-import {carrier, modulator} from './components/synth/synthesizer.component';
+import {carrier, modulator, carrierFrequencyShift, modulatorFrequencyShift} from './components/synth/synthesizer.component';
 
 export const ClockContext = createContext();
 export const ScaleContext = createContext();
 export const SliderContext = createContext();
 export const PitchContext = createContext();
-
 
 const App = React.memo(() => {
   const [time, setTime] = useState(0)
@@ -21,7 +20,6 @@ const App = React.memo(() => {
   const [scale, setScale] = useState(Key.majorKey("C").scale)
   const [pitch, setPitch] = useState("C1")
   const [sliderValues, setsliderValues] = useState([])
-
 
   return (
     <div className="App">
@@ -46,7 +44,10 @@ const App = React.memo(() => {
                   </div>
                   <div>
                     <Synthesizer carrier={carrier}
-                                 modulator={modulator}/>
+                                 carrierFrequencyShift={carrierFrequencyShift}
+                                 modulatorFrequnecyShift={modulatorFrequencyShift}
+                                 modulator={modulator}
+                    />
                   </div>
                 </PitchContext.Provider>
               </ScaleContext.Provider>

@@ -23,6 +23,7 @@ const Sequencer = React.memo(() => {
   const [sliderArr, setSliderArr] =  useState(Array(step).fill(0))
 
   const handleSliderChange = (value, index) => {
+    console.log("hey here")
     const newValue = Math.abs(value)
     if (newValue !== null) {
       setSliderArr(prevState => {
@@ -51,11 +52,11 @@ const Sequencer = React.memo(() => {
 
   useEffect(() => {
     console.log(sliderValues)
-  }, [sliderValues])
+  }, [step])
   
   useEffect(() => {
     updateSliders(sliderArr);
-  }, [sliderArr, updateSliders]);
+  }, [sliderArr, updateSliders, step]);
 
   
   useEffect(() => {

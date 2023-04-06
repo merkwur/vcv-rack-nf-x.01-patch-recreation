@@ -5,33 +5,70 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 import { ClockContext } from "../../App";
 import { PitchContext} from "../../App";
 
-const Synthesizer = ({carrier, modulator}) => {
+const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
   const [isContinuous, setIsContinuous] = useState(true)
   const {run, time} = useContext(ClockContext)
   const [pitch, setPitch] = useContext(PitchContext)
   const [isRunning, setIsRunning] = useState(false)
   const isOscPlaying = useRef(true)
+  const [CMFrequencyShift, setCMFrequencyShift] = useState(0)
+  const [MMFrequencyShift, setMMFrequencyShift] = useState(0)
+
   const width = 55
-  const chromaticScale = [
-    'Cb','C','C#','Db','D', 'D#', 'Eb','E', 'Fb', 'F', 'F#',
-    'Gb','G','G#','Ab','A','A#','Bb','B','B#'
-    ] 
+
   
+  const handleCarrierSelfModulation = (value) => {
+    carrier.modulationIndex.value = value
+  }
   
+  const handleModulatorSelfModulation = (value) => {
+    modulator.modulationIndex.value = value
+  }
+
+  const handleCarrierHarmonicity = (value) => {
+    carrier.harmonicity.value = value
+  }
+
+  const handleModulatorHarmonicity = (value) => {
+    modulator.harmonicity.value = value
+  }
+
+  const handleCarrierFrequencyShiftChange = (value) => {
+    setCMFrequencyShift(value*240)
+  }
+            
   useEffect(() => {
+    carrierFrequencyShift.frequency.value = CMFrequencyShift
+  }, [CMFrequencyShift])
+
+  const handleModulatorFrequencyShiftChange = (value) => {
+    setMMFrequencyShift(value*240)
+  }
+            
+  useEffect(() => {
+    carrierFrequencyShift.frequency.value = MMFrequencyShift
+  }, [MMFrequencyShift])
   
+
+  useEffect(() => {
       carrier.frequency.value = pitch
+      modulator.frequency.value = pitch
       // console.log("what is pitch?", pitch)
   }, [time])
-
 
 
   useEffect(() => {
     if (run & !isRunning){
       carrier.start()
+      // carrier.connect(carrierFrequencyShift)
+      
+      modulator.start()
       setIsRunning(true)
+
     } else {
       carrier.stop()
+      // carrier.disconnect(carrierFrequencyShift)
+      modulator.stop()
       setIsRunning(false)
     }
   }, [run])
@@ -149,7 +186,7 @@ const Synthesizer = ({carrier, modulator}) => {
             valueFontSize={'10pt'}
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
-            label="X<=>C"
+            label="CMI"
             labelColor="#aa4242"
             knobColor="#aa4242"
             progressColorFrom="#aa4242"
@@ -159,27 +196,26 @@ const Synthesizer = ({carrier, modulator}) => {
             knobColor="#aa4242"
             trackColor="#000000"
             trackSize={6}
-            data={Array(10).fill(0)} //...
+            data={[...Array(24).keys()].map((e) => `${e}`)} 
             dataIndex={0}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleScaleChange(value);
+                handleCarrierSelfModulation(value)
               }
             }}
         />
-
         </div>
 
         <div className="X-M-P">
           <CircularSlider
             key={1}
-            width={width}
+            width={width-5}
             className="cross-mod-pan"
             hideKnob={false}
-            valueFontSize={'10pt'}
+            valueFontSize={'7pt'}
             labelFontSize={"7pt"}
-            verticalOffset={"-2px"}
-            label="C<P>M"
+            verticalOffset={"8px"}
+            label="CHC"
             labelColor="#aa4242"
             knobColor="#aa4242"
             progressColorFrom="#aa4242"
@@ -189,17 +225,46 @@ const Synthesizer = ({carrier, modulator}) => {
             knobColor="#aa4242"
             trackColor="#000000"
             trackSize={6}
-            data={Array(10).fill(0)} //...
+            data={Array.from({length: 140}, (_, i) => (.1 * i).toPrecision(3))} 
             dataIndex={0}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleScaleChange(value);
+                handleCarrierHarmonicity(value);
               }
             }}
         />
         </div>
 
-        <div className="X-M-M">
+        <div className="X-M-P">
+          <CircularSlider
+            key={1}
+            width={width-5}
+            className="cross-mod-pan"
+            hideKnob={false}
+            valueFontSize={'7pt'}
+            labelFontSize={"7pt"}
+            verticalOffset={"8px"}
+            label="MHC"
+            labelColor="#aa4242"
+            knobColor="#aa4242"
+            progressColorFrom="#aa4242"
+            progressColorTo="#ff4242"
+            progressSize={6}
+            knobSize={18}
+            knobColor="#aa4242"
+            trackColor="#000000"
+            trackSize={6}
+            data={Array.from({length: 140}, (_, i) => (.1 * i).toPrecision(3))} 
+            dataIndex={0}
+            onChange={(value) => {
+              if (typeof value === 'string') {
+                handleModulatorHarmonicity(value);
+              }
+            }}
+        />
+        </div>
+
+        <div className="X-M-C">
           <CircularSlider
             key={1}
             width={width}
@@ -208,7 +273,7 @@ const Synthesizer = ({carrier, modulator}) => {
             valueFontSize={'10pt'}
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
-            label="X<=>M"
+            label="MMI"
             labelColor="#aa4242"
             knobColor="#aa4242"
             progressColorFrom="#aa4242"
@@ -218,15 +283,19 @@ const Synthesizer = ({carrier, modulator}) => {
             knobColor="#aa4242"
             trackColor="#000000"
             trackSize={6}
-            data={Array(10).fill(0)} //...
+            data={[...Array(24).keys()].map((e) => `${e}`)} 
             dataIndex={0}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleScaleChange(value);
+                handleModulatorSelfModulation(value)
               }
             }}
         />
         </div>
+
+
+
+
 
       </div>
 
@@ -250,11 +319,11 @@ const Synthesizer = ({carrier, modulator}) => {
             knobColor="#aa4242"
             trackColor="#000000"
             trackSize={6}
-            data={Array(10).fill(0)} //...
-            dataIndex={0}
+            data={[...Array(100).keys()].map((e) => `${(e-50)/100}`)} //...
+            dataIndex={50}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleScaleChange(value);
+                handleCarrierFrequencyShiftChange(value);
               }
             }}
         />
@@ -309,11 +378,11 @@ const Synthesizer = ({carrier, modulator}) => {
             knobColor="#aa4242"
             trackColor="#000000"
             trackSize={6}
-            data={Array(10).fill(0)} //...
-            dataIndex={0}
+            data={[...Array(100).keys()].map((e) => `${(e-50)/100}`)} //...
+            dataIndex={50}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleScaleChange(value);
+                handleModulatorFrequencyShiftChange(value);
               }
             }}
         />
