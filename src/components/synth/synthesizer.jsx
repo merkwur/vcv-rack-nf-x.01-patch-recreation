@@ -11,6 +11,9 @@ export const modulatorAmplitude = new Tone.Gain(1.5).connect(merge, 0, 1)
 
 export const carrierFrequencyShift = new Tone.FrequencyShifter(0).connect(carrierAmplitude)
 export const modulatorFrequencyShift = new Tone.FrequencyShifter(0).connect(modulatorAmplitude)
+export const modulationSignal = new Tone.Gain({
+                                      gain: 100, // set the amplitude of the modulation signal
+                                      }).toDestination();
 
 export const carrierEnv = new Tone.AmplitudeEnvelope({
                                               attack: .0,
@@ -39,7 +42,7 @@ export const carrier = new Tone.FMOscillator({
 export const modulator = new Tone.FMOscillator({
                                               frequency: 167,
                                               type: "sine",
-                                              modulationType: "square",
+                                              modulationType: "sine",
                                               harmonicity: 0,
                                               modulationIndex: 0
                                             }).connect(modulatorFrequencyShift)

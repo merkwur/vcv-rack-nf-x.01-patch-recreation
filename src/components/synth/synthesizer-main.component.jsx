@@ -51,11 +51,11 @@ const Synthesizer = ({carrier,
   }, [CMFrequencyShift])
 
   const handleModulatorSelfModulation = (value) => {
-    carrier.modulationIndex.value = value
+    modulator.modulationIndex.value = value
   }
 
   const handleModulatorHarmonicity = (value) => {
-    carrier.harmonicity.value = value
+    modulator.harmonicity.value = value
   }
 
   const handleModulatorFrequencyShiftChange = (value) => {
@@ -68,6 +68,7 @@ const Synthesizer = ({carrier,
 
   const handleModulatorModChange = (value) => {
     modulator.modulationType = value
+    
   }
 
   const handleDecayChange = (value) =>{
