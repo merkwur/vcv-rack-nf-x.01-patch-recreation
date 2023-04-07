@@ -67,8 +67,11 @@ const Synthesizer = ({carrier,
   }
 
   const handleModulatorReverbChange = (value) => {
-    
     modulatorReverb.decay = value
+  }
+
+  const handleDecayChange = (value) =>{
+    carrierEnv.sustain = value
   }
 
   useEffect(() => {
@@ -154,7 +157,7 @@ const Synthesizer = ({carrier,
               valueFontSize={'10pt'}
               labelFontSize={"7pt"}
               verticalOffset={"-2px"}
-              label="X<=>C"
+              label="disfunctional"
               labelColor="#fa8423"
               progressColorFrom="#aa424200"
               progressColorTo="#ff424200"
@@ -183,7 +186,7 @@ const Synthesizer = ({carrier,
               valueFontSize={'10pt'}
               labelFontSize={"7pt"}
               verticalOffset={"-2px"}
-              label="C<P>M"
+              label="decayRate"
               labelColor="#fa8423"
               progressColorFrom="#aa424200"
               progressColorTo="#ff424200"
@@ -192,11 +195,11 @@ const Synthesizer = ({carrier,
               knobColor="#d65d0e"
               trackColor="#000000"
               trackSize={trackSizeS}
-              data={Array(10).fill(0)} //...
+              data={[...Array(100).keys()].map((e) => `${e / 100}`)} //...
               dataIndex={0}
               onChange={(value) => {
                 if (typeof value === 'string') {
-                  handleScaleChange(value);
+                  handleDecayChange(value);
                 }
               }}
           />
@@ -211,7 +214,7 @@ const Synthesizer = ({carrier,
               valueFontSize={'10pt'}
               labelFontSize={"7pt"}
               verticalOffset={"-2px"}
-              label="X<=>M"
+              label="disfunctional"
               labelColor="#fa8423"
               progressColorFrom="#aa424200"
               progressColorTo="#ff424200"

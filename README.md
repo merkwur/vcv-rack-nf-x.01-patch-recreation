@@ -1,10 +1,17 @@
 # VCV Rack Patch Implementation
 
-Recreation of simple yet beautiful patch from VCV Rack. Will be some exrta features.
+Implementation of simple yet beautiful patch from VCV Rack.
+
+To run locally: 
 
 ```bash
+git clone https://github.com/merkwur/vcv-rack-patch-implementation.git
+cd vcv-rack-patch-implementation
 npm -i
+npm run dev
 ```
+
+I have tried to implement this patch. 
 
 ![Schematic](./src/assets/schematics.png)
 
@@ -14,12 +21,15 @@ npm -i
 
 For Synthesizer:
  - Cross Modulation for Synthesizer
- - Continuous to Discrete, Discrete to Continuous Signal Conversation
 
 For Qunatizer:
  - Chord Picker 
  - Mode Picker 
  - Octave Picker
+
+For Mixer Effects:
+ - Create Delay
+ - Create Reverb
 
 For Scope:
  - Create an Analyser component:
