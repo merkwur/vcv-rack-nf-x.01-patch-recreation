@@ -6,20 +6,15 @@ import Quantizer from './components/quantizer/quantizer.component';
 import FineTune from './components/fine-tune-keys/fine-tune-keys.component';
 import Synthesizer from './components/synth/synthesizer-main.component';
 import { Key } from 'tonal';
-// import {carrier, 
-//         carrierFrequencyShift, 
-//         carrierAmplitude,
-//         modulator, 
-//         modulatorFrequencyShift,
-//         modulatorAmplitude} from './components/synth/synthesizer.component';
 import {carrier, 
         carrierFrequencyShift, 
         carrierAmplitude,
         carrierEnv,
+        carrierReverb,
         modulator, 
         modulatorFrequencyShift,
         modulatorAmplitude,
-        modulatorEnv} from './components/synth/synthesizer';
+        modulatorReverb} from './components/synth/synthesizer';
 import ErrorBoundary from './errorBoundary.component';
 
 export const ClockContext = createContext();
@@ -32,6 +27,7 @@ const App = React.memo(() => {
   const [time, setTime] = useState(0)
   const [step, setStep] = useState(8)
   const [run, setRun] = useState(false)
+  const [tick, setTick] = useState(120)
   const [scale, setScale] = useState(Key.majorKey("C").scale)
   const [pitch, setPitch] = useState("C1")
   const [sliderValues, setsliderValues] = useState([...Array(step).fill(0)])
@@ -40,9 +36,10 @@ const App = React.memo(() => {
     <div className="App">
         <ClockContext.Provider value={{time, setTime, 
                                        step, setStep, 
-                                       run,  setRun}}>          
+                                       run,  setRun,
+                                       tick,  setTick}}>          
           <div>
-            <Clock  bpm={120}/>
+            <Clock bpm={120}/>
           </div>
           <SliderContext.Provider value={[sliderValues, setsliderValues]}>
             <div>
@@ -62,10 +59,12 @@ const App = React.memo(() => {
                                    carrierFrequencyShift={carrierFrequencyShift}
                                    carrierAmplitude={carrierAmplitude}
                                    carrierEnv={carrierEnv}
+                                   carrierReverb={carrierReverb}
                                    modulator={modulator}
                                    modulatorFrequencyShift={modulatorFrequencyShift}
                                    modulatorAmplitude={modulatorAmplitude}
-                                   modulatorEnv={modulatorEnv}
+                                   modulatorReverb={modulatorReverb}
+                                   
                                                                                                
                       />
                     

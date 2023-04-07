@@ -9,6 +9,7 @@ const Clock = React.memo(({ bpm }) => {
   const {time, setTime} = useContext(ClockContext);
   const {step, setStep} = useContext(ClockContext)
   const {run, setRun} = useContext(ClockContext)
+  const {tick, setTick} = useContext(ClockContext)
   const [BPM, setBPM] = useState(bpm);
   const [intervalId, setIntervalId] = useState(0);
   const [doubleIt, setdoubleIt] = useState(false);
@@ -66,7 +67,7 @@ const Clock = React.memo(({ bpm }) => {
       const id = setInterval(() => setTime(prevTime => prevTime + 1), 60000 / BPM);
       setIntervalId(id);
     }
-    
+    setTick(BPM/60)
   }, [BPM]);
 
   const handleBPMChange = (value) => {    
