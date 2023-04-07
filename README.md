@@ -1,4 +1,4 @@
-# vcv-rack-patch-recreation
+# VCV Rack Patch Implementation
 
 Recreation of simple yet beautiful patch from VCV Rack. Will be some exrta features.
 
