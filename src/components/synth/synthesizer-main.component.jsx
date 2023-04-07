@@ -62,12 +62,12 @@ const Synthesizer = ({carrier,
     setMMFrequencyShift(value*200)
   }
 
-  const handleCarrierReverbChange= (value) => {
-    carrierReverb.decay = value
+  const handleCarrierModChange = (value) => {
+    carrier.modulationType = value
   }
 
-  const handleModulatorReverbChange = (value) => {
-    modulatorReverb.decay = value
+  const handleModulatorModChange = (value) => {
+    modulator.modulationType = value
   }
 
   const handleDecayChange = (value) =>{
@@ -154,10 +154,10 @@ const Synthesizer = ({carrier,
               width={width}
               className="cross-mod"
               hideKnob={false}
-              valueFontSize={'10pt'}
+              valueFontSize={'7pt'}
               labelFontSize={"7pt"}
               verticalOffset={"-2px"}
-              label="disfunctional"
+              label="modType"
               labelColor="#fa8423"
               progressColorFrom="#aa424200"
               progressColorTo="#ff424200"
@@ -166,11 +166,11 @@ const Synthesizer = ({carrier,
               knobColor="#d65d0e"
               trackColor="#000000"
               trackSize={trackSizeM}
-              data={Array(10).fill(0)} //...
+              data={["sine", "square", "sawtooth", "triangle"]} //...
               dataIndex={0}
               onChange={(value) => {
                 if (typeof value === 'string') {
-                  handleScaleChange(value);
+                  handleCarrierModChange(value);
                 }
               }}
           />
@@ -180,10 +180,10 @@ const Synthesizer = ({carrier,
           <div className="X-M-P">
             <CircularSlider
               key={1}
-              width={width-5}
+              width={width}
               className="cross-mod-pan"
               hideKnob={false}
-              valueFontSize={'10pt'}
+              valueFontSize={'8pt'}
               labelFontSize={"7pt"}
               verticalOffset={"-2px"}
               label="decayRate"
@@ -191,10 +191,10 @@ const Synthesizer = ({carrier,
               progressColorFrom="#aa424200"
               progressColorTo="#ff424200"
               progressSize={6}
-              knobSize={knobSizeS}
+              knobSize={knobSizeM}
               knobColor="#d65d0e"
               trackColor="#000000"
-              trackSize={trackSizeS}
+              trackSize={trackSizeM}
               data={[...Array(100).keys()].map((e) => `${e / 100}`)} //...
               dataIndex={0}
               onChange={(value) => {
@@ -211,10 +211,10 @@ const Synthesizer = ({carrier,
               width={width}
               className="cross-mod"
               hideKnob={false}
-              valueFontSize={'10pt'}
+              valueFontSize={'7pt'}
               labelFontSize={"7pt"}
               verticalOffset={"-2px"}
-              label="disfunctional"
+              label="modType"
               labelColor="#fa8423"
               progressColorFrom="#aa424200"
               progressColorTo="#ff424200"
@@ -223,11 +223,11 @@ const Synthesizer = ({carrier,
               knobColor="#d65d0e"
               trackColor="#000000"
               trackSize={trackSizeM}
-              data={Array(10).fill(0)} //...
+              data={["sine", "square", "sawtooth", "triangle"]} //...
               dataIndex={0}
               onChange={(value) => {
                 if (typeof value === 'string') {
-                  handleScaleChange(value);
+                  handleModulatorModChange(value);
                 }
               }}
           />
