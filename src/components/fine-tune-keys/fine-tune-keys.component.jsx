@@ -82,7 +82,6 @@ const FineTune = React.memo(() => {
   useEffect(() => {
     const selectedKey = sliderValues[currentStep] % resultKeys.length
     setPitch(`${resultKeys[selectedKey]}${Math.floor(sliderValues[currentStep] / 12.5)+1}`)
-
   }, [time, run, sliderValues]);
   
   const renderKey = (key, isBlack) => {

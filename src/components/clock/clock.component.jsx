@@ -142,7 +142,7 @@ const Clock = React.memo(({ bpm }) => {
             <div className='buttons'>
               <button className='start' onClick={() => handleClock()}>
                 <span>
-                  {!run ? `>` : `|`}  
+                  {!run ? `start` : `stop`}  
                 </span>
               </button>      
             </div>

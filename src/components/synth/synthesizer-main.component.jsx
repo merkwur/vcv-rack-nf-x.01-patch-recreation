@@ -5,7 +5,7 @@ import CircularSlider from '@fseehawer/react-circular-slider';
 import { ClockContext } from "../../App";
 import { PitchContext} from "../../App";
 
-const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
+const Synthesizer = ({carrier, carrierFrequencyShift, carrierAmplitude, carrierEnv, modulator, modulatorFrequencyShift}) => {
   const [isContinuous, setIsContinuous] = useState(true)
   const {run, time} = useContext(ClockContext)
   const [pitch, setPitch] = useContext(PitchContext)
@@ -15,67 +15,78 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
   const [MMFrequencyShift, setMMFrequencyShift] = useState(0)
 
   // Slider styles
-  const knobColor = "fa8423"
+  const width = 60
   const knobSizeS = 18
   const knobSizeM = 24
   const trackSizeS = 3
   const trackSizeM = 4
 
-  const width = 60
   
   const handleCarrierSelfModulation = (value) => {
     carrier.modulationIndex.value = value
-  }
-  
-  const handleModulatorSelfModulation = (value) => {
-    modulator.modulationIndex.value = value
   }
 
   const handleCarrierHarmonicity = (value) => {
     carrier.harmonicity.value = value
   }
 
-  const handleModulatorHarmonicity = (value) => {
-    modulator.harmonicity.value = value
-  }
-
   const handleCarrierFrequencyShiftChange = (value) => {
-    setCMFrequencyShift(value*100)
+    setCMFrequencyShift(value*200)
   }
             
   useEffect(() => {
     carrierFrequencyShift.frequency.value = CMFrequencyShift
   }, [CMFrequencyShift])
 
+  const handleModulatorSelfModulation = (value) => {
+    carrier.modulationIndex.value = value
+  }
+
+  const handleModulatorHarmonicity = (value) => {
+    carrier.harmonicity.value = value
+  }
+
   const handleModulatorFrequencyShiftChange = (value) => {
-    setMMFrequencyShift(value*100)
+    setMMFrequencyShift(value*200)
   }
             
   useEffect(() => {
-    carrierFrequencyShift.frequency.value = MMFrequencyShift
+    carrierFrequencyShift.frequency.value = CMFrequencyShift
+  }, [CMFrequencyShift])
+
+  useEffect(() => {
+    modulatorFrequencyShift.frequency.value = MMFrequencyShift
   }, [MMFrequencyShift])
-  
 
   useEffect(() => {
       carrier.frequency.value = pitch
       modulator.frequency.value = pitch
-      // console.log("what is pitch?", pitch)
   }, [time])
 
 
   useEffect(() => {
     if (run & !isRunning){
-      // carrier.start()
-      // modulator.start()
+      carrier.start()
+      modulator.start()
       setIsRunning(true)
 
     } else {
       carrier.stop()
-      // carrier.disconnect(carrierFrequencyShift)
-      // modulator.stop()
+      modulator.stop()
       setIsRunning(false)
     }
   }, [run])
+
+
+  useEffect(() => {
+    if (isContinuous){
+      carrierEnv.toDestination()
+      carrierAmplitude.connect(carrierEnv)
+    } else {
+      carrierEnv.disposed()
+      carrierAmplitude.connect(carrierEnv)
+    }
+  },[isContinuous])
 
 
   return (
@@ -177,7 +188,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
       </div>
       
       <div className="self-mod">
-        <div className="X-M-C">
+        <div className="S-M-C">
           <CircularSlider
             key={1}
             width={width}
@@ -255,13 +266,13 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             dataIndex={0}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleModulatorHarmonicity(value);
+                handleModulatorHarmonicity(value)
               }
             }}
         />
         </div>
 
-        <div className="X-M-C">
+        <div className="S-M-M">
           <CircularSlider
             key={1}
             width={width}
@@ -370,7 +381,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             dataIndex={50}
             onChange={(value) => {
               if (typeof value === 'string') {
-                handleModulatorFrequencyShiftChange(value);
+                handleModulatorFrequencyShiftChange(value)
               }
             }}
         />

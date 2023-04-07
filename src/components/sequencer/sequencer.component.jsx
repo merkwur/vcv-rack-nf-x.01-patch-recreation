@@ -1,6 +1,5 @@
 import React, { useContext, 
                 useEffect, 
-                useCallback,
                 useState, 
                 useRef, 
                 createContext, 
@@ -36,7 +35,6 @@ const Sequencer = React.memo(() => {
     return time % step;
   }, [time, step]);
 
-  useEffect(() =>{console.log(sliderValues)}, [sliderValues])
 
   useEffect(() => {
     const newSliderValues =
@@ -44,7 +42,7 @@ const Sequencer = React.memo(() => {
         ? sliderValues.slice(0, step)
         : [...sliderValues, ...Array(step - sliderValues.length).fill(0)];
     setSliderValues(newSliderValues);
-    console.log(sliderValues)
+    
   }, [step]);
 
   useEffect(() => {
@@ -91,6 +89,9 @@ const Sequencer = React.memo(() => {
       if (div) {
         div.style.backgroundColor =
           currentStep - 1 === i ? "#d79921" : "#000000";
+        div.style.boxShadow =
+          currentStep - 1 === i ? "0px 0px 3px 3px #d79921" : "0px 0px 0px 0px #000000";
+        
       }
     });
   }, [time, step, currentStep]);

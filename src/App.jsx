@@ -6,12 +6,27 @@ import Quantizer from './components/quantizer/quantizer.component';
 import FineTune from './components/fine-tune-keys/fine-tune-keys.component';
 import Synthesizer from './components/synth/synthesizer-main.component';
 import { Key } from 'tonal';
-import {carrier, modulator, carrierFrequencyShift, modulatorFrequencyShift} from './components/synth/synthesizer.component';
+// import {carrier, 
+//         carrierFrequencyShift, 
+//         carrierAmplitude,
+//         modulator, 
+//         modulatorFrequencyShift,
+//         modulatorAmplitude} from './components/synth/synthesizer.component';
+import {carrier, 
+        carrierFrequencyShift, 
+        carrierAmplitude,
+        carrierEnv,
+        modulator, 
+        modulatorFrequencyShift,
+        modulatorAmplitude,
+        modulatorEnv} from './components/synth/synthesizer';
+import ErrorBoundary from './errorBoundary.component';
 
 export const ClockContext = createContext();
 export const ScaleContext = createContext();
 export const SliderContext = createContext();
 export const PitchContext = createContext();
+
 
 const App = React.memo(() => {
   const [time, setTime] = useState(0)
@@ -42,11 +57,18 @@ const App = React.memo(() => {
                     <Quantizer /> 
                   </div>
                   <div>
-                    <Synthesizer carrier={carrier}
-                                 carrierFrequencyShift={carrierFrequencyShift}
-                                 modulatorFrequnecyShift={modulatorFrequencyShift}
-                                 modulator={modulator}
-                    />
+                    
+                      <Synthesizer carrier={carrier}
+                                   carrierFrequencyShift={carrierFrequencyShift}
+                                   carrierAmplitude={carrierAmplitude}
+                                   carrierEnv={carrierEnv}
+                                   modulator={modulator}
+                                   modulatorFrequencyShift={modulatorFrequencyShift}
+                                   modulatorAmplitude={modulatorAmplitude}
+                                   modulatorEnv={modulatorEnv}
+                                                                                               
+                      />
+                    
                   </div>
                 </PitchContext.Provider>
               </ScaleContext.Provider>

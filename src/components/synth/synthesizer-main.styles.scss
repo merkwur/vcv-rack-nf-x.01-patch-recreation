@@ -31,7 +31,8 @@
     }
   }
   .cross-mod{
-    // border: 1px solid #ff4242;
+    
+    
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -39,10 +40,17 @@
     margin-bottom: 10px;
     padding: 10px 0px 10px 0px;
 
-      
+    .X-M-C{
+      translate: -20px 0px;
+    }   
+    
     .X-M-P{
       transform: translateY(40px);
-    }   
+    }
+    
+    .X-M-M{
+      translate: 20px 0px;
+    }
   }
   
   .self-mod{
@@ -56,10 +64,19 @@
 
 
     .self-mod-harms-carrier{
-      translate: -5px 40px;
+      translate: -10px 40px;
     }
     .self-mod-harms-modulator{
-      translate: 5px 40px;
+      translate: 10px 40px;
+    }
+
+    .S-M-C{
+      translate: -30px 0px;
+    }   
+    
+    
+    .S-M-M{
+      translate: 30px 0px;
     }
   }
 
@@ -69,12 +86,20 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 35px;
+    margin-bottom: 20px;
     padding: 10px 0px 10px 0px;
 
     .F-S-P{
       transform: translateY(40px);
+    }
+    
+    .F-S-C{
+      translate: -30px 0px;
     }   
+    
+    .F-S-M{
+      translate: 30px 0px;
+    }
   }
 }
