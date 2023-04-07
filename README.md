@@ -2,7 +2,9 @@
 
 Recreation of simple yet beautiful patch from VCV Rack. Will be some exrta features.
 
-```npm -i```
+```bash
+npm -i
+```
 
 ![Schematic](./src/assets/schematics.png)
 
