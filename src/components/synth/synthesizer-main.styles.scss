@@ -11,19 +11,23 @@
   .head-panel{
     display: flex;
     justify-content: center;
-    // border: 1px solid #ff4242;
     margin-top: 10px;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0px 0px 0px;
 
     .discrete-continuous{
-      color: #ff4242;
+      color: #fa8423;
       font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 75px;
       font-weight: 900;
       background-color: black;
       border: none;
       outline: none;
-      border-radius: 20%;
+      border-radius: 20px;
+      
+
     }
   }
   .cross-mod{
@@ -35,16 +39,42 @@
     margin-bottom: 10px;
     padding: 10px 0px 10px 0px;
 
-    .X-M-C{
-      margin-left: 10px;
-    }
-
+      
     .X-M-P{
       transform: translateY(40px);
-    }
+    }   
+  }
+  
+  .self-mod{
+    // border: 1px solid #ff4242;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 0px;
 
-    .X-M-M{
-      margin-right: 10px;
+
+    .self-mod-harms-carrier{
+      translate: -5px 40px;
     }
+    .self-mod-harms-modulator{
+      translate: 5px 40px;
+    }
+  }
+
+  .freq-shift{
+    
+    // border: 1px solid #ff4242;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 0px;
+
+    .F-S-P{
+      transform: translateY(40px);
+    }   
   }
 }

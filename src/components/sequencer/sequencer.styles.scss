@@ -3,13 +3,13 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  max-width: 80vw;
+  // max-width: 80vw;
   height: 460px;
   max-height: 100%;
-  border: 5px solid #aa424200;
+  // border: 5px solid #aa4242;
   border-radius: 10px;
-  margin: 10px 10px 0px 10px;
-  padding: 00px 10px 10px 10px;
+  margin: 20px 20px 0px 00px;
+  padding: 00px 10px 10px 0px;
 
   .rows{
     width: 100%;
@@ -30,7 +30,7 @@
       justify-content: space-between;
       max-height: 100%;
       border: 1px solid #aa424200;
-      margin: 10px 10px 10px 10px;
+      margin: 10px 10px 10px 0px;
       padding: 10px 45px 10px 0px;  
       
     }
@@ -38,7 +38,7 @@
     .step{
       border: 1px solid #aa424200;
       display: flex;
-      margin: 0px 10px 10px 10px;
+      margin: 0px 10px 10px 0px;
       justify-content: space-between;
       padding: 10px 25px 10px 30px;
       

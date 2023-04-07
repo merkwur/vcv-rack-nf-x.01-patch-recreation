@@ -11,15 +11,13 @@ const Quantizer = React.memo((props) => {
 
   const handleScaleChange = (value) =>{
     setScale(Key.majorKey(value).scale)
-    
   }
-
 
   return (
     <div className="qunatizer-container">
-      <div className="quant-header">
+      {/* <div className="quant-header">
         Quantizer
-      </div>
+      </div> */}
       <div className="quant-placer">
         <div className="radio">
           <div className="rb-columns scale ocatva">
@@ -29,17 +27,16 @@ const Quantizer = React.memo((props) => {
                     width={width}
                     className="scale-picker"
                     hideKnob={false}
-                    valueFontSize={'20pt'}
-                    labelFontSize={"10.5pt"}
+                    valueFontSize={'18pt'}
+                    labelFontSize={"8.5pt"}
                     verticalOffset={"-2px"}
                     label="scale"
-                    labelColor="#aa4242"
-                    knobColor="#aa4242"
-                    progressColorFrom="#aa4242"
-                    progressColorTo="#ff4242"
+                    labelColor="#83a598"
+                    knobColor="#458588"
+                    progressColorFrom="#aa424200"
+                    progressColorTo="#ff424200"
                     progressSize={6}
-                    knobSize={18}
-                    knobColor="#aa4242"
+                    knobSize={28}
                     trackColor="#000000"
                     trackSize={6}
                     data={Scale.get("C chromatic").notes} //...
@@ -57,17 +54,16 @@ const Quantizer = React.memo((props) => {
                     width={width}
                     className="octave-picker"
                     hideKnob={false}
-                    valueFontSize={'20pt'}
-                    labelFontSize={"10.5pt"}
-                    verticalOffset={"-2px"}
-                    label="octave"
-                    labelColor="#aa4242"
-                    knobColor="#aa4242"
-                    progressColorFrom="#aa4242"
-                    progressColorTo="#ff4242"
+                    valueFontSize={'7pt'}
+                    labelFontSize={"7pt"}
+                    verticalOffset={"-9px"}
+                    label="dysfunctional"
+                    labelColor="#000"
+                    knobColor="#000"
+                    progressColorFrom="#aa424200"
+                    progressColorTo="#ff424200"
                     progressSize={6}
                     knobSize={18}
-                    knobColor="#aa4242"
                     trackColor="#000000"
                     trackSize={6}
                     data={["0", "1", "2", "3", "4", "5", "6", "7", "8"]} //...
@@ -88,12 +84,11 @@ const Quantizer = React.memo((props) => {
                     verticalOffset={"-9px"}
                     label="dysfunctional"
                     labelColor="#000"
-                    knobColor="#aa4242"
-                    progressColorFrom="#aa4242"
-                    progressColorTo="#ff4242"
+                    knobColor="#000"
+                    progressColorFrom="#aa424200"
+                    progressColorTo="#ff424200"
                     progressSize={6}
-                    knobSize={18}
-                    knobColor="#aa4242"
+                    knobSize={18}           
                     trackColor="#000000"
                     trackSize={6}
                     data={Array(10).fill(0)} //...
@@ -116,12 +111,11 @@ const Quantizer = React.memo((props) => {
                     verticalOffset={"-9px"}
                     label="dysfunctional"
                     labelColor="#000"
-                    knobColor="#aa4242"
-                    progressColorFrom="#aa4242"
-                    progressColorTo="#ff4242"
+                    knobColor="#000"
+                    progressColorFrom="#aa424200"
+                    progressColorTo="#ff424200"
                     progressSize={6}
                     knobSize={18}
-                    knobColor="#aa4242"
                     trackColor="#000000"
                     trackSize={6}
                     data={Array(10).fill(0)} //...

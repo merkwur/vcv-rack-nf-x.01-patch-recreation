@@ -1,5 +1,6 @@
 import * as Tone from "tone";
 
+export const modulatorAmplitude = new Tone.Gain(1).toDestination();
 export const carrierFrequencyShift = new Tone.FrequencyShifter(0).toDestination()
 export const modulatorFrequencyShift = new Tone.FrequencyShifter(0).toDestination()
 
@@ -20,3 +21,6 @@ export const modulator = new Tone.FMOscillator({
                                             }).connect(modulatorFrequencyShift)
 
 
+
+modulator.connect(modulatorAmplitude);
+modulatorAmplitude.connect(carrier.frequency);

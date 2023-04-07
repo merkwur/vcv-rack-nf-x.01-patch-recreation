@@ -1,11 +1,11 @@
 import './App.scss'
-import React, { useContext, useEffect, useState,  createContext } from 'react';
+import React, {useState,  createContext} from 'react';
 import Clock from './components/clock/clock.component'
 import Sequencer from './components/sequencer/sequencer.component';
-import Quantizer from './components/quantizer/qunatizer.component';
+import Quantizer from './components/quantizer/quantizer.component';
 import FineTune from './components/fine-tune-keys/fine-tune-keys.component';
-import { Key } from 'tonal';
 import Synthesizer from './components/synth/synthesizer-main.component';
+import { Key } from 'tonal';
 import {carrier, modulator, carrierFrequencyShift, modulatorFrequencyShift} from './components/synth/synthesizer.component';
 
 export const ClockContext = createContext();
@@ -19,18 +19,17 @@ const App = React.memo(() => {
   const [run, setRun] = useState(false)
   const [scale, setScale] = useState(Key.majorKey("C").scale)
   const [pitch, setPitch] = useState("C1")
-  const [sliderValues, setsliderValues] = useState([])
+  const [sliderValues, setsliderValues] = useState([...Array(step).fill(0)])
 
   return (
     <div className="App">
         <ClockContext.Provider value={{time, setTime, 
                                        step, setStep, 
-                                       run,  setRun}}>
-           
+                                       run,  setRun}}>          
           <div>
             <Clock  bpm={120}/>
           </div>
-          <SliderContext.Provider value={[sliderValues, setsliderValues ]}>
+          <SliderContext.Provider value={[sliderValues, setsliderValues]}>
             <div>
               <Sequencer />
             </div>
@@ -53,9 +52,6 @@ const App = React.memo(() => {
               </ScaleContext.Provider>
           </SliderContext.Provider>
         </ClockContext.Provider>
-        <div>
-        
-        </div>
     </div>
   )
 })

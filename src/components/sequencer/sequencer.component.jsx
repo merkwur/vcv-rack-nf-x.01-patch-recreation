@@ -14,19 +14,17 @@ import "./sequencer.styles.scss"
 export const SequencerContext = createContext();
 
 const Sequencer = React.memo(() => {
-  const {time} = useContext(ClockContext);
-  const {step} = useContext(ClockContext)
-  const [sliderValues, setSliderValues] = useContext(SliderContext)
+  const { time } = useContext(ClockContext);
+  const { step } = useContext(ClockContext);
+  const [sliderValues, setSliderValues] = useContext(SliderContext);
   const sequencerStepsRef = useRef([]);
   const [sequencerDivs, setSequencerDivs] = useState([]);
   const [sequencerSteps, setSequencerSteps] = useState([]);
-  const [sliderArr, setSliderArr] =  useState(Array(step).fill(0))
 
   const handleSliderChange = (value, index) => {
-    console.log("hey here")
     const newValue = Math.abs(value)
     if (newValue !== null) {
-      setSliderArr(prevState => {
+      setSliderValues(prevState => {
         const updatedValues = [...prevState];
         updatedValues[index] = Number(newValue);
         return updatedValues;
@@ -38,31 +36,22 @@ const Sequencer = React.memo(() => {
     return time % step;
   }, [time, step]);
 
-  
-  useLayoutEffect(() => {
-    sequencerStepsRef.current.forEach((div, i) => {
-      div.style.backgroundColor = currentStep-1 === i ? '#aa4242' : '#000000';
-    });
-    
-  }, [time]);
-
-  const updateSliders = useCallback((keys) => {
-    setSliderValues(keys);
-  }, [setSliderValues]);
+  useEffect(() =>{console.log(sliderValues)}, [sliderValues])
 
   useEffect(() => {
+    const newSliderValues =
+      sliderValues.length >= step
+        ? sliderValues.slice(0, step)
+        : [...sliderValues, ...Array(step - sliderValues.length).fill(0)];
+    setSliderValues(newSliderValues);
     console.log(sliderValues)
-  }, [step])
-  
-  useEffect(() => {
-    updateSliders(sliderArr);
-  }, [sliderArr, updateSliders, step]);
+  }, [step]);
 
-  
   useEffect(() => {
     const newSequencerDivs = [];
     const newSequencerSteps = [];
-    for (let i = 0; i < step; i++) {
+    const numSteps = Math.min(step, sequencerStepsRef.current.length);
+    for (let i = 0; i < numSteps; i++) {
       newSequencerDivs.push(
         <VerticalSlider
           key={i}
@@ -70,7 +59,7 @@ const Sequencer = React.memo(() => {
           min={-100}
           max={0}
           step={1}
-          value={sliderArr[i]}
+          value={sliderValues[i]}
           onChange={(value) => handleSliderChange(value, i)}
         />
       );
@@ -82,25 +71,42 @@ const Sequencer = React.memo(() => {
         />
       );
     }
+    // If there are more steps than before, add new refs to the end of the array
+    for (let i = sequencerStepsRef.current.length; i < step; i++) {
+      sequencerStepsRef.current.push(null);
+      newSequencerSteps.push(
+        <div
+          key={i}
+          className="sequencer-step"
+          ref={(ref) => (sequencerStepsRef.current[i] = ref)}
+        />
+      );
+    }
     setSequencerDivs(newSequencerDivs);
     setSequencerSteps(newSequencerSteps);
-  }, [step, sliderArr]);
+  }, [step]);
+
+  useLayoutEffect(() => {
+    sequencerStepsRef.current.slice(0, step).forEach((div, i) => {
+      if (div) {
+        div.style.backgroundColor =
+          currentStep - 1 === i ? "#d79921" : "#000000";
+      }
+    });
+  }, [time, step, currentStep]);
+
 
   return (
-    <div className='sequence-container'>
-      <div className='rows'>
-        <div className='range'>
-          {sequencerDivs}
-          
-        </div>
-        <div className='step'>
-          {sequencerSteps}
-        </div>
+    <div className="sequence-container">
+      <div className="rows">
+        <div className="range">{sequencerDivs}</div>
+        <div className="step">{sequencerSteps}</div>
       </div>
-    <div>
+      <div></div>
     </div>
-    </div>        
-  )
-})
+  );
+});
+
+
 
 export default Sequencer

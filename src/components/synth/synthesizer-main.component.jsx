@@ -14,8 +14,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
   const [CMFrequencyShift, setCMFrequencyShift] = useState(0)
   const [MMFrequencyShift, setMMFrequencyShift] = useState(0)
 
-  const width = 55
+  // Slider styles
+  const knobColor = "fa8423"
+  const knobSizeS = 18
+  const knobSizeM = 24
+  const trackSizeS = 3
+  const trackSizeM = 4
 
+  const width = 60
   
   const handleCarrierSelfModulation = (value) => {
     carrier.modulationIndex.value = value
@@ -34,7 +40,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
   }
 
   const handleCarrierFrequencyShiftChange = (value) => {
-    setCMFrequencyShift(value*240)
+    setCMFrequencyShift(value*100)
   }
             
   useEffect(() => {
@@ -42,7 +48,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
   }, [CMFrequencyShift])
 
   const handleModulatorFrequencyShiftChange = (value) => {
-    setMMFrequencyShift(value*240)
+    setMMFrequencyShift(value*100)
   }
             
   useEffect(() => {
@@ -59,16 +65,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
 
   useEffect(() => {
     if (run & !isRunning){
-      carrier.start()
-      // carrier.connect(carrierFrequencyShift)
-      
-      modulator.start()
+      // carrier.start()
+      // modulator.start()
       setIsRunning(true)
 
     } else {
       carrier.stop()
       // carrier.disconnect(carrierFrequencyShift)
-      modulator.stop()
+      // modulator.stop()
       setIsRunning(false)
     }
   }, [run])
@@ -95,15 +99,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="X<=>C"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeM}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeM}
             data={Array(10).fill(0)} //...
             dataIndex={0}
             onChange={(value) => {
@@ -118,22 +121,21 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
         <div className="X-M-P">
           <CircularSlider
             key={1}
-            width={width}
+            width={width-5}
             className="cross-mod-pan"
             hideKnob={false}
             valueFontSize={'10pt'}
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="C<P>M"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeS}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeS}
             data={Array(10).fill(0)} //...
             dataIndex={0}
             onChange={(value) => {
@@ -154,15 +156,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="X<=>M"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeM}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeM}
             data={Array(10).fill(0)} //...
             dataIndex={0}
             onChange={(value) => {
@@ -175,8 +176,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
 
       </div>
       
-      <div className="cross-mod">
-
+      <div className="self-mod">
         <div className="X-M-C">
           <CircularSlider
             key={1}
@@ -187,15 +187,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="CMI"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeM}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeM}
             data={[...Array(24).keys()].map((e) => `${e}`)} 
             dataIndex={0}
             onChange={(value) => {
@@ -206,7 +205,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
         />
         </div>
 
-        <div className="X-M-P">
+        <div className="self-mod-harms-carrier">
           <CircularSlider
             key={1}
             width={width-5}
@@ -216,16 +215,15 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"8px"}
             label="CHC"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeS}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
-            data={Array.from({length: 140}, (_, i) => (.1 * i).toPrecision(3))} 
+            trackSize={trackSizeS}
+            data={[...Array(1400).keys()].map((e) => `${(e/100)}`)} 
             dataIndex={0}
             onChange={(value) => {
               if (typeof value === 'string') {
@@ -235,7 +233,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
         />
         </div>
 
-        <div className="X-M-P">
+        <div className="self-mod-harms-modulator">
           <CircularSlider
             key={1}
             width={width-5}
@@ -245,16 +243,15 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"8px"}
             label="MHC"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeS}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
-            data={Array.from({length: 140}, (_, i) => (.1 * i).toPrecision(3))} 
+            trackSize={trackSizeS}
+            data={[...Array(1400).keys()].map((e) => `${(e/100)}`)} 
             dataIndex={0}
             onChange={(value) => {
               if (typeof value === 'string') {
@@ -274,15 +271,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="MMI"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeM}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeM}
             data={[...Array(24).keys()].map((e) => `${e}`)} 
             dataIndex={0}
             onChange={(value) => {
@@ -292,15 +288,10 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             }}
         />
         </div>
-
-
-
-
-
       </div>
 
-      <div className="cross-mod">
-        <div className="X-M-C">
+      <div className="freq-shift">
+        <div className="F-S-C">
           <CircularSlider
             key={1}
             width={width}
@@ -310,15 +301,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="cfShift"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeM}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeM}
             data={[...Array(100).keys()].map((e) => `${(e-50)/100}`)} //...
             dataIndex={50}
             onChange={(value) => {
@@ -330,25 +320,24 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
 
         </div>
 
-        <div className="X-M-P">
+        <div className="F-S-P">
           <CircularSlider
             key={1}
-            width={width}
+            width={width-5}
             className="cross-mod-pan"
             hideKnob={false}
             valueFontSize={'10pt'}
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="fOff"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff42ff00"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeS}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeS}
             data={Array(10).fill(0)} //...
             dataIndex={0}
             onChange={(value) => {
@@ -359,7 +348,7 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
         />
         </div>
 
-        <div className="X-M-M">
+        <div className="F-S-M">
           <CircularSlider
             key={1}
             width={width}
@@ -369,15 +358,14 @@ const Synthesizer = ({carrier, carrierFrequencyShift ,modulator}) => {
             labelFontSize={"7pt"}
             verticalOffset={"-2px"}
             label="mfShift"
-            labelColor="#aa4242"
-            knobColor="#aa4242"
-            progressColorFrom="#aa4242"
-            progressColorTo="#ff4242"
+            labelColor="#fa8423"
+            progressColorFrom="#aa424200"
+            progressColorTo="#ff424200"
             progressSize={6}
-            knobSize={18}
-            knobColor="#aa4242"
+            knobSize={knobSizeM}
+            knobColor="#d65d0e"
             trackColor="#000000"
-            trackSize={6}
+            trackSize={trackSizeM}
             data={[...Array(100).keys()].map((e) => `${(e-50)/100}`)} //...
             dataIndex={50}
             onChange={(value) => {

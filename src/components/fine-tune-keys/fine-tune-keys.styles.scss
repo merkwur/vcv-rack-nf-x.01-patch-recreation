@@ -1,25 +1,26 @@
 .piano {
-  border: 5px solid #aa424200;
+  // border: 5px solid #aa4242;
   width: 100px;
   height: 460px;
   display: flex;
   align-items: center;
-  margin: 10px 0px 0px 10px;
+  margin: 10px 0px 0px 0px;
   padding: 00px 0px 10px 20px;
 }
 
 .keys {
-  color: #aa4242;
+  color: #83a598;
   display: flex;
   flex-direction: column;
   justify-content: bottom;
   text-align: center;
+  translate: 0px -20px;
 }
 
 .key {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border: 1px solid black;
   cursor: pointer;
   transition: background-color 0.25s ease-in-out;
@@ -33,28 +34,28 @@
 }
 
 .white {
-  transform: translateX(40px);
+  translate: 50px 0px;
   background-color: black;
-  border: 2px solid #aa424242;
+  border: 2px solid #50494542;
   border-radius: 50%;
 }
 
 .black {
-  border: 2px solid #ff424242;
+  border: 2px solid #50494542;
   background-color: black;
   margin-top: -15px;
   // margin-left: -13px;
   // margin-right: -13px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   z-index: 1;
 }
 
 .active {
-  background-color: #ff4242;
+  background-color: #8ec07c;
 }
 
 .in-scale{
-  background-color: #f583017f;
+  background-color: #458588;
 }
