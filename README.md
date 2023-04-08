@@ -7,7 +7,7 @@ To run locally:
 ```bash
 git clone https://github.com/merkwur/vcv-rack-patch-implementation.git
 cd vcv-rack-patch-implementation
-npm -i
+npm install
 npm run dev
 ```
 
