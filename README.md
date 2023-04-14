@@ -20,7 +20,7 @@ I have tried to implement this patch.
 ## TO-DO  
 
 For Synthesizer:
- - Cross Modulation for Synthesizer
+ - Rewrite the synthesizer (instead of builtin osc => fromArray(arr))
 
 For Qunatizer:
  - Chord Picker 
